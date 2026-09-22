@@ -1,0 +1,2 @@
+run,modality,augmentation_percent,test_accuracy,test_f1,test_latency_ms,device,warning
+simulation,hands,25,0.4,0.27999999999999997,2.1149266666422286,cpu,Pipeline rehearsal only; repeated perturbed templates across splits.
