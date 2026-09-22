@@ -1,5 +1,7 @@
 # WLASL100 Prototype Pipeline
 
+See [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md) for the full architecture, current status, verified rehearsal, known gaps, team responsibilities, and next-step roadmap.
+
 The downloaded videos are stored in `WSLA100/wlasl100-new/WLASL_100`, split into `train`, `val`, and `test` folders.
 
 ## Local setup
