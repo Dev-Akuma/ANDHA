@@ -46,6 +46,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Process at most this many videos in total; useful for local smoke tests.",
     )
+    parser.add_argument(
+        "--classes",
+        nargs="+",
+        default=None,
+        help="Specific classes to extract (e.g., 'book' 'drink'). If omitted, extracts all.",
+    )
     return parser.parse_args()
 
 
@@ -145,8 +151,10 @@ def extract_video(video_path: Path, holistic: object, target_frames: int, modali
     return np.asarray(features, dtype=np.float32)
 
 
-def video_paths(input_root: Path, limit: int | None) -> list[Path]:
+def video_paths(input_root: Path, limit: int | None, classes: list[str] | None = None) -> list[Path]:
     paths = sorted(input_root.glob("*/**/*.mp4"))
+    if classes:
+        paths = [p for p in paths if p.parent.name in classes]
     return paths if limit is None else paths[:limit]
 
 
@@ -154,7 +162,7 @@ def main() -> None:
     args = parse_args()
     if args.frames < 1:
         raise ValueError("--frames must be at least 1")
-    videos = video_paths(args.input_root, args.limit)
+    videos = video_paths(args.input_root, args.limit, args.classes)
     if not videos:
         raise FileNotFoundError(f"No .mp4 files found below {args.input_root}")
 
